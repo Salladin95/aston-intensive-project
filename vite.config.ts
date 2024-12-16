@@ -13,5 +13,5 @@ export default defineConfig({
 			'~': pathSrc,
 		},
 	},
-	base: '/repository-name/'
+	base: '/aston-intensive-project/'
 })
