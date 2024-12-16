@@ -1,11 +1,16 @@
 import { useParams } from 'react-router-dom'
 import { useSearchMovieById } from '~/shared/api/movies'
 import { Box, Card, CardContent, CardMedia, Divider, Typography } from '@mui/material'
+import { E404 } from '~/shared/ui/E404'
+import { Loader } from '~/shared/ui'
 
 export function MovieDetails() {
 	const { id } = useParams()
-	const { data: movie } = useSearchMovieById(id || '', { enabled: Boolean(id) })
-	if (!movie) return null
+	const { data: movie, isPending, error } = useSearchMovieById(id || '', { enabled: Boolean(id) })
+
+	if (isPending) return <Loader />
+
+	if (!movie || error) return <E404 />
 
 	return (
 		<Box

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Box, CircularProgress } from '@mui/material'
+import { UserProvider } from '~/shared/context'
+import { SnackbarProvider } from 'notistack'
 import { ReactQueryProvider, RouterProvider } from '~/app/providers'
 
 import './index.scss'
@@ -7,15 +7,11 @@ import './index.scss'
 export function App() {
 	return (
 		<ReactQueryProvider>
-			<React.Suspense
-				fallback={
-					<Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-						<CircularProgress />
-					</Box>
-				}
-			>
-				<RouterProvider />
-			</React.Suspense>
+			<SnackbarProvider maxSnack={6}>
+				<UserProvider>
+					<RouterProvider />
+				</UserProvider>
+			</SnackbarProvider>
 		</ReactQueryProvider>
 	)
 }
