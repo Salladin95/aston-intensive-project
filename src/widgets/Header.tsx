@@ -31,10 +31,10 @@ export function Header() {
 						<Typography variant="h6" sx={{ textDecoration: 'none', color: 'inherit' }}>
 							{user.username}
 						</Typography>
-						<Button component={Link} to="/favorites" color="inherit">
+						<Button component={Link} to="/protected/favorites" color="inherit">
 							Избранное
 						</Button>
-						<Button component={Link} to="/history" color="inherit">
+						<Button component={Link} to="/protected/history" color="inherit">
 							История поиска
 						</Button>
 						<Button color="inherit" onClick={handleLogOut}>

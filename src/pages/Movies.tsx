@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useSearchMoviesByTitle } from '~/shared/api/movies'
 import { Typography, Box, CardMedia, Card, CardContent, Container, TextField, IconButton, Button } from '@mui/material'
 import { E404 } from '~/shared/ui/E404'
@@ -8,10 +8,18 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 
 export function Movies() {
-	const [movieQuery, setMovieQuery] = React.useState('Lord')
+	const location = useLocation()
+	const searchParam = new URLSearchParams(location.search).get('query')
+	const [movieQuery, setMovieQuery] = React.useState(searchParam || 'Lord of the Rings')
 	const deferredMovieQuery = React.useDeferredValue(movieQuery)
 	const { data: movies, error, isPending } = useSearchMoviesByTitle(deferredMovieQuery)
 	const navigate = useNavigate()
+
+	function handleOnChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+		const value = e.currentTarget.value
+		setMovieQuery(value)
+		window.history.pushState(null, '', `/?${value}`)
+	}
 
 	return (
 		<Container component={'main'} sx={{ padding: '2rem' }}>
@@ -20,7 +28,7 @@ export function Movies() {
 				label="Search for movies"
 				variant="outlined"
 				value={movieQuery}
-				onChange={(e) => setMovieQuery(e.target.value)}
+				onChange={handleOnChange}
 				fullWidth
 			/>
 			{(() => {
