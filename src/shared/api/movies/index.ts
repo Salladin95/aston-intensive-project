@@ -1,7 +1,7 @@
 import axios from "~/app/axios";
 import { AxiosError } from "axios";
 import { Movie, MovieDetailedInfo } from "~/shared/types";
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+import { UseQueryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 type FetchMoviesResponse = Movie[]
 type FetchMovieResponse = MovieDetailedInfo
@@ -19,7 +19,7 @@ export async function searchMovieById(imdbID: string): Promise<FetchMovieRespons
 export const searchMoviesByTitleKey = 'searchMoviesByTitle'
 
 export function useSearchMoviesByTitle(title: string, options?: Omit<UseQueryOptions<FetchMoviesResponse, AxiosError>, "queryFn" | "queryKey">) {
-	return useQuery({
+	return useSuspenseQuery({
 		queryKey: [searchMoviesByTitleKey, title],
 		queryFn: ({ queryKey }) => searchMoviesByTitle(queryKey[1] as unknown as string),
 		...options,
@@ -27,7 +27,7 @@ export function useSearchMoviesByTitle(title: string, options?: Omit<UseQueryOpt
 }
 
 export function useSearchMovieById(id: string, options?: Omit<UseQueryOptions<FetchMovieResponse, AxiosError>, "queryFn" | "queryKey">) {
-	return useQuery({
+	return useSuspenseQuery({
 		queryKey: [searchMoviesByTitleKey, id],
 		queryFn: ({ queryKey }) => searchMovieById(queryKey[1] as unknown as string),
 		...options,

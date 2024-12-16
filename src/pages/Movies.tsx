@@ -1,24 +1,15 @@
 import { useNavigate } from 'react-router-dom'
 import { useSearchMoviesByTitle } from '~/shared/api/movies'
-import { Typography, Box, CardMedia, Card, CardContent, CircularProgress, Container } from '@mui/material'
+import { Typography, Box, CardMedia, Card, CardContent, Container } from '@mui/material'
 
 export function Movies() {
-	const { data: movies, isPending } = useSearchMoviesByTitle('Lord of the rings')
+	const { data: movies } = useSearchMoviesByTitle('Lord of the rings')
 	const navigate = useNavigate()
 
 	if (!movies || movies.length === 0) {
 		return (
 			<Box display="flex" justifyContent="center" alignItems="center" height="100vh">
 				<Typography variant="h6">No movies found.</Typography>
-			</Box>
-		)
-	}
-
-	// While the request is pending, display a loading spinner
-	if (isPending) {
-		return (
-			<Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-				<CircularProgress />
 			</Box>
 		)
 	}

@@ -19,6 +19,12 @@ export function MovieDetails() {
 			}}
 		>
 			<Card sx={{ maxWidth: 1200 }}>
+				<CardContent sx={{ paddingLeft: 2, pb: '2rem' }}>
+					<Typography variant="h4">{movie.Title}</Typography>
+					<Typography variant="body1" color="text.secondary">
+						{movie.Year}
+					</Typography>
+				</CardContent>
 				<CardMedia
 					component="img"
 					alt={movie.Title}
