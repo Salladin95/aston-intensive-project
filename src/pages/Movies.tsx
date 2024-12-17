@@ -9,8 +9,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 
 export function Movies() {
 	const location = useLocation()
+	console.log(location)
 	const searchParam = new URLSearchParams(location.search).get('query')
-	const [movieQuery, setMovieQuery] = React.useState(searchParam || 'Lord of the Rings')
+	const [movieQuery, setMovieQuery] = React.useState(searchParam?.split('=')[1] || 'Lord of the Rings')
 	const deferredMovieQuery = React.useDeferredValue(movieQuery)
 	const { data: movies, error, isPending } = useSearchMoviesByTitle(deferredMovieQuery)
 	const navigate = useNavigate()
@@ -18,7 +19,7 @@ export function Movies() {
 	function handleOnChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
 		const value = e.currentTarget.value
 		setMovieQuery(value)
-		window.history.pushState(null, '', `/?${value}`)
+		window.history.pushState(null, '', `/?query=${value}`)
 	}
 
 	return (
