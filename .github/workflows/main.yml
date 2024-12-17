@@ -21,7 +21,9 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: Build project
-        run: npm run build
+        env: # Pass secrets as environment variables
+          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
+          VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
