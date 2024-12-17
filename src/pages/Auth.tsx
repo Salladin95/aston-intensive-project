@@ -55,9 +55,10 @@ export const AuthPage = () => {
 
 	// Функция для авторизации
 	const handleLogin = (user: FormData) => {
-		const savedPassword = JSON.parse(localStorage.getItem(user.username) ?? '')
-		if (!savedPassword || user.password !== savedPassword) {
-			return toast('Логин или пароль не верен', 'error')
+		const userString = localStorage.getItem(user.username)
+		const savedUser = userString ? JSON.parse(userString) : null
+		if (!savedUser || user.password !== savedUser.password) {
+			return toast('Логин или пароль не верны', 'error')
 		}
 
 		login(user)
