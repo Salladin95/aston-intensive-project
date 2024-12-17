@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import { Box, TextField, Button, Typography, Container } from '@mui/material'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useToast } from '~/shared/hooks'
+import { useFavorites, useToast } from '~/shared/hooks'
 import { useUser } from '~/shared/context'
 
 const schema = Yup.object().shape({
@@ -19,6 +19,7 @@ export const AuthPage = () => {
 	const [isSignIn, setIsSignIn] = React.useState(location.search === '?signin')
 	const { login } = useUser()
 	const navigate = useNavigate()
+	const { initFavorites } = useFavorites(undefined)
 
 	const toast = useToast()
 
@@ -45,7 +46,7 @@ export const AuthPage = () => {
 		localStorage.setItem(user.username, JSON.stringify(user.password))
 
 		// Сохраняем пустую историю и избранное
-		localStorage.setItem(`${user.username}_favorites`, JSON.stringify([]))
+		initFavorites(user.username)
 		localStorage.setItem(`${user.username}_history`, JSON.stringify([]))
 
 		login(user)

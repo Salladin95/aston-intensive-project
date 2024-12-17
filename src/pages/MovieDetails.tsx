@@ -16,7 +16,6 @@ export function MovieDetails() {
 		<Box
 			sx={{
 				padding: 2,
-				width: '100%',
 				height: '94vh',
 				display: 'flex',
 				justifyContent: 'center',

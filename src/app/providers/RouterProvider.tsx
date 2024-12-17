@@ -1,5 +1,5 @@
 import { MainLayout, ProtectedRoutes } from '~/shared/ui'
-import { AuthPage, HistoryPage, MovieDetails, Movies } from '~/pages'
+import { AuthPage, HistoryPage, MovieDetails, Movies, FavoriteMovies } from '~/pages'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 export function RouterProvider() {
@@ -12,7 +12,7 @@ export function RouterProvider() {
 					<Route path="/movie/:id" element={<MovieDetails />} />
 					<Route path="/protected" element={<ProtectedRoutes />}>
 						<Route path="history" element={<HistoryPage />} />
-						<Route path="favorites" element={<HistoryPage />} />
+						<Route path="favorites" element={<FavoriteMovies />} />
 					</Route>
 				</Route>
 			</Routes>
