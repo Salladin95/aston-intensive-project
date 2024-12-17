@@ -10,6 +10,11 @@ export type PropsWithChildren = {
   children?: React.ReactNode
 }
 
+export interface User {
+	username: string
+	password: string
+}
+
 export interface Movie {
   Title: string
   Year: string

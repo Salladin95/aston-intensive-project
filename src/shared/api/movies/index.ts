@@ -8,6 +8,9 @@ type FetchMovieResponse = MovieDetailedInfo
 
 export async function searchMoviesByTitle(title: string): Promise<FetchMoviesResponse> {
 	const res = await axios.get<{ Search: Movie[] }>(`?s=${title}`);
+	if (!res.data.Search) {
+		throw new Error('404')
+	}
 	return res.data.Search
 }
 

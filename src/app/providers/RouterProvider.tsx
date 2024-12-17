@@ -1,14 +1,20 @@
-import { MovieDetails, Movies } from '~/pages'
+import { MainLayout, ProtectedRoutes } from '~/shared/ui'
+import { AuthPage, HistoryPage, MovieDetails, Movies, FavoriteMovies } from '~/pages'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 export function RouterProvider() {
 	return (
 		<BrowserRouter basename="/aston-intensive-project">
 			<Routes>
-				{/* <Route path="/signin" element={<Signin />} /> */}
-				{/* <Route path="/signup" element={<Signup />} /> */}
-				<Route index path="/" element={<Movies />} />
-				<Route path="/movie/:id" element={<MovieDetails />} />
+				<Route path="/" element={<MainLayout />}>
+					<Route index path="/" element={<Movies />} />
+					<Route path="/auth" element={<AuthPage />} />
+					<Route path="/movie/:id" element={<MovieDetails />} />
+					<Route path="/protected" element={<ProtectedRoutes />}>
+						<Route path="history" element={<HistoryPage />} />
+						<Route path="favorites" element={<FavoriteMovies />} />
+					</Route>
+				</Route>
 			</Routes>
 		</BrowserRouter>
 	)

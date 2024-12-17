@@ -1,3 +1,5 @@
+import { UserProvider } from '~/shared/context'
+import { SnackbarProvider } from 'notistack'
 import { ReactQueryProvider, RouterProvider } from '~/app/providers'
 
 import './index.scss'
@@ -5,7 +7,11 @@ import './index.scss'
 export function App() {
 	return (
 		<ReactQueryProvider>
-			<RouterProvider />
+			<SnackbarProvider maxSnack={6}>
+				<UserProvider>
+					<RouterProvider />
+				</UserProvider>
+			</SnackbarProvider>
 		</ReactQueryProvider>
 	)
 }

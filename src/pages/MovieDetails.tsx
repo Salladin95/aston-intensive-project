@@ -1,17 +1,21 @@
 import { useParams } from 'react-router-dom'
 import { useSearchMovieById } from '~/shared/api/movies'
 import { Box, Card, CardContent, CardMedia, Divider, Typography } from '@mui/material'
+import { E404 } from '~/shared/ui/E404'
+import { Loader } from '~/shared/ui'
 
 export function MovieDetails() {
 	const { id } = useParams()
-	const { data: movie } = useSearchMovieById(id || '', { enabled: Boolean(id) })
-	if (!movie) return null
+	const { data: movie, isPending, error } = useSearchMovieById(id || '', { enabled: Boolean(id) })
+
+	if (isPending) return <Loader />
+
+	if (!movie || error) return <E404 />
 
 	return (
 		<Box
 			sx={{
 				padding: 2,
-				width: '100%',
 				height: '94vh',
 				display: 'flex',
 				justifyContent: 'center',
@@ -19,6 +23,12 @@ export function MovieDetails() {
 			}}
 		>
 			<Card sx={{ maxWidth: 1200 }}>
+				<CardContent sx={{ paddingLeft: 2, pb: '2rem' }}>
+					<Typography variant="h4">{movie.Title}</Typography>
+					<Typography variant="body1" color="text.secondary">
+						{movie.Year}
+					</Typography>
+				</CardContent>
 				<CardMedia
 					component="img"
 					alt={movie.Title}
